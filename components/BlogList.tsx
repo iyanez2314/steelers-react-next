@@ -37,8 +37,16 @@ export default function BlogList({ posts }: Props) {
                 />
                 <div className="absolute bottom-0 w-full bg-opacity-20 bg-black backdrop-blur-lg rounded drop-shadow-lg text-white p-5 flex justify-between">
                   <div>
-                    <p className="font-bold">{post.title}</p>
-                    <p>
+                    <p className="font-bold text-lg">{post.title}</p>
+                    <p className="text-sm">
+                      Day of event:{" "}
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                    <p className="text-xs">
                       Posted on{" "}
                       {new Date(post._createdAt).toLocaleDateString("en-Us", {
                         day: "numeric",

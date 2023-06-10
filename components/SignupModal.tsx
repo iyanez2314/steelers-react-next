@@ -47,6 +47,9 @@ export default function SignupModal() {
             <div className="flex items-center justify-center w-[300px] h-[500px] bg-[#f1f7fe] overflow-hidden rounded-md text-[#010101]">
               <form className="relative flex flex-col py-5 px-5 gap-y-5">
                 <span className="title font-semibold text-3xl">Sign up</span>
+                <p className="mt-4 md:mt-2 text-gray-400 max-w-sm">
+                  Updates for every event | Any important steelers news
+                </p>
                 <div className="form-container overflow-hidden rounded-md bg-[#fff] m-1 w-full">
                   <input
                     type="text"
