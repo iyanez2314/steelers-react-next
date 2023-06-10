@@ -8,15 +8,27 @@ interface Props {
 }
 
 export default function BlogList({ posts }: Props) {
+  const mostRecentPost = posts.reduce((prevPost, currentPost) =>
+    prevPost._createdAt > currentPost._createdAt ? prevPost : currentPost
+  );
   return (
     <div>
       <hr className="border-[#F7AB0A] mb-10" />
-
+      <div className="px-10 py-5 mb-5">
+        <h2 className="text-5xl font-bold">Most Recent Post</h2>
+        <h3 className="mt-5 md:mt-0 text-sm">
+          All posts regarding the south texas steelers fan club will be here!
+        </h3>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 px-10 gap-10 gap-y-16 pb-24">
         {posts.map((post) => (
           <ClientSideRoute key={post._id} route={`/post/${post.slug.current}`}>
             <div className="flex flex-col group cursor-pointer">
-              <div className="relative w-full h-80 drop-shadow-xl group-hover:scale-105 transition-transform duration-200 ease-out">
+              <div
+                className={`relative w-full ${
+                  post === mostRecentPost ? "h-[500px]" : ""
+                } h-80 drop-shadow-xl group-hover:scale-105 transition-transform duration-200 ease-out`}
+              >
                 <Image
                   className="object-cover object-left lg:object-center"
                   src={urlFor(post.mainImage).url()}
@@ -27,6 +39,7 @@ export default function BlogList({ posts }: Props) {
                   <div>
                     <p className="font-bold">{post.title}</p>
                     <p>
+                      Posted on{" "}
                       {new Date(post._createdAt).toLocaleDateString("en-Us", {
                         day: "numeric",
                         month: "long",
@@ -37,7 +50,7 @@ export default function BlogList({ posts }: Props) {
 
                   <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-2 items-center ">
                     <div className="bg-[#F7AB0A] text-center text-black px-3 py-1 rounded-full text-sm font-semibold">
-                      <p>Meetup</p>
+                      {post.categories[0].title}
                     </div>
                   </div>
                 </div>

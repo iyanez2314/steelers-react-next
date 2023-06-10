@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SteelersLogo from "../public/Steelers-Club-Logo-_1_-transformed.png";
+import SignupModal from "./SignupModal";
 
 export default function Header() {
   return (
@@ -19,9 +20,9 @@ export default function Header() {
       <div>
         <Link
           href="/"
-          className="px-5 py-3 text-sm md:text-base bg-gray-900 text-[#F7AB0A] flex items-center rounded-full text-center"
+          className="px-3 py-2 md:text-base bg-gray-900 flex items-center rounded-full text-center"
         >
-          Sign up to join!
+          <SignupModal />
         </Link>
       </div>
     </header>
