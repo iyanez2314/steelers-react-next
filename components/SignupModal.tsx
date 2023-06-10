@@ -1,12 +1,11 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,9 +19,31 @@ const style = {
 };
 
 export default function SignupModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((inputs) => ({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmitForm = async () => {
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(inputs),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
 
   return (
     <div>
@@ -53,21 +74,31 @@ export default function SignupModal() {
                 <div className="form-container overflow-hidden rounded-md bg-[#fff] m-1 w-full">
                   <input
                     type="text"
+                    name="name"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Full Name"
+                    onChange={handleInputChange}
                   />
                   <input
                     type="email"
+                    name="email"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Email"
+                    onChange={handleInputChange}
                   />
                   <input
                     type="text"
+                    name="phoneNumber"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Phone Number"
+                    onChange={handleInputChange}
                   />
                 </div>
-                <button className="bg-[#F7AB0A] text-[#fff] border-none rounded-full py-2 text-md font-light cursor-pointer ">
+                <button
+                  onClick={onSubmitForm}
+                  type="submit"
+                  className="bg-[#F7AB0A] text-[#fff] border-none rounded-full py-2 text-md font-light cursor-pointer "
+                >
                   Sign up
                 </button>
               </form>
