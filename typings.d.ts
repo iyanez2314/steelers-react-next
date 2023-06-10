@@ -4,6 +4,7 @@ type Base = {
   _rev: string;
   _type: string;
   _updatedAt: string;
+  date: string;
 };
 
 interface Post extends Base {
