@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,6 +21,7 @@ const style = {
 
 export default function SignupModal() {
   const [open, setOpen] = useState(false);
+  const [successfullySignedUp, setSuccessfullySignedUp] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -42,7 +44,12 @@ export default function SignupModal() {
       body: JSON.stringify(inputs),
     });
     const data = await res.json();
-    console.log(data);
+    setSuccessfullySignedUp(true);
+    setInputs({
+      name: "",
+      email: "",
+      phoneNumber: "",
+    });
   };
 
   return (
@@ -67,6 +74,11 @@ export default function SignupModal() {
           <Box sx={style}>
             <div className="flex items-center justify-center w-[300px] h-[500px] bg-[#f1f7fe] overflow-hidden rounded-md text-[#010101]">
               <form className="relative flex flex-col py-5 px-5 gap-y-5">
+                {successfullySignedUp ? (
+                  <Alert severity="success">
+                    You have successfully signed up check your email!
+                  </Alert>
+                ) : null}
                 <span className="title font-semibold text-3xl">Sign up</span>
                 <p className="mt-4 md:mt-2 text-gray-400 max-w-sm">
                   Updates for every event | Any important steelers news
@@ -77,6 +89,7 @@ export default function SignupModal() {
                     name="name"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Full Name"
+                    value={inputs.name}
                     onChange={handleInputChange}
                   />
                   <input
@@ -84,6 +97,7 @@ export default function SignupModal() {
                     name="email"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Email"
+                    value={inputs.email}
                     onChange={handleInputChange}
                   />
                   <input
@@ -91,6 +105,7 @@ export default function SignupModal() {
                     name="phoneNumber"
                     className="input bg-none border-none h-[40px] text-md px-2 outline-none"
                     placeholder="Phone Number"
+                    value={inputs.phoneNumber}
                     onChange={handleInputChange}
                   />
                 </div>
