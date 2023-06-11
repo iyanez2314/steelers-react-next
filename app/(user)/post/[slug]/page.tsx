@@ -38,7 +38,15 @@ export default async function Post({ params: { slug } }: Props) {
             <div className="flex flex-col md:flex-row justify-between gap-y-5">
               <div>
                 <h1 className="text-4xl font-extrabold">{post.title}</h1>
-                <p>
+                <p className="text-sm">
+                  Day of event:{" "}
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
+                <p className="text-xs">
                   Posted{" "}
                   {new Date(post._createdAt).toLocaleDateString("en-US", {
                     day: "numeric",
