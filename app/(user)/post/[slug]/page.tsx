@@ -2,7 +2,6 @@ import { groq } from "next-sanity";
 import Image from "next/image";
 import { client } from "../../../../lib/client";
 import urlFor from "../../../../lib/urlFor";
-import PortableText from "@portabletext/react";
 
 interface Props {
   params: {
@@ -79,7 +78,6 @@ export default async function Post({ params: { slug } }: Props) {
           </section>
         </div>
       </section>
-      {/* <PortableText value={post.body} components={RichTextComponents}/> */}
     </article>
   );
 }
